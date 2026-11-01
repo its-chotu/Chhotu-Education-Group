@@ -295,45 +295,62 @@
 </div>
 
 <script>
-const OWNER_PASSWORD = "997945";
-const YOUR_UPI = "9979451178@axl";
-
-function startTest(type, mode){
-  alert(type + ' ' + mode + ' Test is Opening!');
-}
-
 function payNow(){
- window.location.href = `upi://pay?pa=${YOUR_UPI}&pn=Chhotu-Education&am=49&cu=INR&tn=Nursing Full Course`;
+    window.location.href = `upi://pay?pa=${YOUR_UPI}&pn=Chhotu-Education&am=49&cu=INR&tn=Nursing Full Course`;
+    
+    setTimeout(() => {
+        if(confirm("Have you completed the Rs.49 payment? Press OK to unlock.")){
+            const expiry = new Date();
+            expiry.setDate(expiry.getDate() + 150); // 5 Months
+            localStorage.setItem("paidExpiry", expiry.toISOString());
+            localStorage.setItem("isPaid", "true");
+            location.reload();
+        }
+    }, 2000);
 }
 
 function unlockPaid(){
-  let pass = prompt("Enter Owner Password:");
-  if(pass === OWNER_PASSWORD){
-    localStorage.setItem('isPaid', 'true');
-    alert('Verified! Paid Test Unlocked.');
-    location.reload();
-  } else if(pass === null){
-    return;
-  } else {
-    alert('Invalid Password! Please complete payment first.');
-    payNow();
-  }
+    let pass = prompt("Enter Owner Password:");
+    if(pass === OWNER_PASSWORD){
+        const expiry = new Date();
+        expiry.setDate(expiry.getDate() + 150);
+        localStorage.setItem("paidExpiry", expiry.toISOString());
+        localStorage.setItem("isPaid", "true");
+        alert("Verified! Paid Test Unlocked for 5 Months.");
+        location.reload();
+    } else if(pass == null){
+        return;
+    } else {
+        alert("Invalid Password! Please complete payment first.");
+        payNow();
+    }
 }
 
 function ownerBypassForYouOnly(){
-  localStorage.setItem('isPaid', 'true');
-  location.reload();
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 150);
+    localStorage.setItem("paidExpiry", expiry.toISOString());
+    localStorage.setItem("isPaid", "true");
+    location.reload();
 }
 
 function checkPaidStatus(){
-  if(localStorage.getItem('isPaid') === 'true'){
-    const lock = document.getElementById('paid-lock');
-    const unlocked = document.getElementById('paid-unlocked');
-    if(lock) lock.style.display = 'none';
-    if(unlocked) unlocked.style.display = 'block';
-  }
+    const expiryStr = localStorage.getItem("paidExpiry");
+    const isPaid = localStorage.getItem("isPaid");
+    if(isPaid === "true" && expiryStr){
+        const expiry = new Date(expiryStr);
+        if(new Date() < expiry){
+            const lock = document.getElementById("paid-lock");
+            const unlocked = document.getElementById("paid-unlocked");
+            if(lock) lock.style.display = "none";
+            if(unlocked) unlocked.style.display = "block";
+            return;
+        } else {
+            localStorage.removeItem("isPaid");
+            localStorage.removeItem("paidExpiry");
+        }
+    }
 }
-
 window.onload = checkPaidStatus;
 </script>
     <script src="script.js"></script>
