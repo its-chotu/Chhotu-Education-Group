@@ -1,358 +1,309 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chhotu Education Group - Online Test Arena & Learning Portal</title>
+
+    <title>Chhotu Education Group - Online Test Portal</title>
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    
-    <!-- Header Navigation -->
-    <header class="navbar">
-        <div class="logo">
-            <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="logo-text">
-                <span class="brand-title">CHHOTU <span class="accent">EDUCATION GROUP</span></span>
-                <span class="brand-sub">KNOWLEDGE · WISDOM · LIGHT</span>
-            </div>
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
         </div>
-        <nav class="nav-links">
-            <button class="nav-btn active" onclick="switchTab('home')"><i class="fa-solid fa-house"></i> Home</button>
-            <button class="nav-btn" onclick="switchTab('tests')"><i class="fa-solid fa-calculator"></i> Tests</button>
-            <button class="nav-btn" onclick="switchTab('attempts')"><i class="fa-solid fa-square-check"></i> Attempts</button>
-            <button class="nav-btn" onclick="switchTab('learn')"><i class="fa-solid fa-graduation-cap"></i> Learn & Media</button>
-        </nav>
-        <div class="user-stats">
-            <span class="streak-badge"><i class="fa-solid fa-fire"></i> 0 DAYS</span>
-            <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i></button>
-        </div>
-    </header>
 
-    <!-- Main Container -->
-    <main class="container">
-
-        <!-- TAB 1: HOME -->
-        <section id="home-tab" class="tab-content active">
-            <!-- Hero Banner -->
-            <div class="hero-banner">
-                <div class="hero-text">
-                    <span class="badge">Official Online Examination Portal</span>
-                    <h1>Chhotu Education Group</h1>
-                    <p>Standardized Computer-Based Test (CBT) arena. Configure sectional time limits, dynamic question counts, and experience realistic entrance exam workflows with auto-evaluations.</p>
-                </div>
-                <div class="hero-card">
-                    <img src="profile.jpg.jpeg" style="width:90px; height:90px; border-radius:50%;">
-                     <h2>CHHOTU <span>EDUCATION GROUP</span></h2>
-                </div>
-            </div>
-
-            <!-- Choose Exam Section -->
-            <div class="section-header">
-                <h2>CHOOSE YOUR EXAM</h2>
-                <a href="#" class="view-all">View All (4 Exams) <i class="fa-solid fa-chevron-right"></i></a>
-            </div>
-
-            <div class="exam-grid">
-                <!-- Exam Card 1 -->
-                <div class="exam-card active-card" onclick="document.getElementById('aiims-section').style.display='block'" style="cursor:pointer;">
-                    <div class="card-header">
-                        <div class="exam-icon"><i class="fa-solid fa-stethoscope"></i></div>
-                        <span class="tag tag-blue">Central AIIMS</span>
-                    </div>
-                    <h3>AIIMS NORCET</h3>
-                    <p>Nursing Officer Common Eligibility Test preparation and practice modules.</p>
-                    <div class="card-footer">
-                         <span><i class="fa-solid fa-layer-group"></i> Free + Paid</span>
-                           <span><i class="fa-solid fa-lock-open"></i> Free Demo</span>  
-                    </div>
-                </div>
-
-                <!-- Exam Card 2 -->
-                <div class="exam-card active-card" onclick="document.getElementById('aiims-section').style.display='block'" style="cursor:pointer;">
-                      <div class="card-header">
-                        <div class="exam-icon"><i class="fa-solid fa-microscope"></i></div>
-                        <span class="tag tag-orange">Coming Soon</span>
-                    </div>
-                    <h3>NEET PG</h3>
-                    <p>National Eligibility cum Entrance Test for Post Graduation aspirants.</p>
-                    <div class="card-footer">
-                     <span><i class="fa-solid fa-layer-group"></i> Free + Paid</span>
-                     <span><i class="fa-solid fa-lock-open"></i> Free Demo</span>
-                    </div>
-                </div>
-                    <!-- RRB Card -->
-    <div class="exam-card active-card" onclick="window.location.href='rrb.html'" style="cursor:pointer;">
-        <div class="card-header">
-            <div class="exam-icon"><i class="fa-solid fa-train"></i></div>
-            <span class="tag tag-blue">New</span>
-        </div>
-        <h3>RRB Exams</h3>
-        <p>RRB NTPC, Group D Important Questions with Free Demo.</p>
-        <div class="card-footer">
-            <span><i class="fa-solid fa-layer-group"></i> Free + Paid</span>
-            <span><i class="fa-solid fa-lock-open"></i> Free Demo</span>
+        <div class="logo-text">
+            <span class="brand-title">
+                CHHOTU <span class="accent">EDUCATION GROUP</span>
+            </span>
+            <span class="brand-sub">KNOWLEDGE · WISDOM · LIGHT</span>
         </div>
     </div>
 
-    <!-- SSC CGL Card -->
-    <div class="exam-card active-card" onclick="window.location.href='ssc.html'" style="cursor:pointer;">
-        <div class="card-header">
-            <div class="exam-icon"><i class="fa-solid fa-book"></i></div>
-            <span class="tag tag-blue">New</span>
-        </div>
-        <h3>SSC CGL</h3>
-        <p>SSC CGL Important Questions with Free Demo Test.</p>
-        <div class="card-footer">
-            <span><i class="fa-solid fa-layer-group"></i> Free + Paid</span>
-            <span><i class="fa-solid fa-lock-open"></i> Free Demo</span>
-        </div>
+    <nav class="nav-links">
+        <button class="nav-btn active" onclick="switchTab('home',this)">Home</button>
+        <button class="nav-btn" onclick="switchTab('tests',this)">Tests</button>
+        <button class="nav-btn" onclick="switchTab('attempts',this)">Attempts</button>
+        <button class="nav-btn" onclick="switchTab('learn',this)">Learn & Media</button>
+    </nav>
+
+    <div class="user-stats">
+        <span class="streak-badge">0 DAYS</span>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fa-solid fa-sun"></i>
+        </button>
     </div>
+
+</header>
+
+<main class="container">
+
+    <!-- HOME -->
+
+    <section id="home-tab" class="tab-content active">
+
+        <div class="hero-banner">
+
+            <div class="hero-text">
+                <span class="badge">Official Online Examination Portal</span>
+
+                <h1>Chhotu Education Group</h1>
+
+                <p>
+                    Prepare for competitive exams with online mock tests,
+                    practice questions and study materials.
+                </p>
             </div>
 
-            <!-- Demo Test Banner -->
-            <div class="demo-banner">
-                <div class="demo-info">
-                    <i class="fa-solid fa-flask demo-icon"></i>
-                    <div>
-                        <h3>Try Demo Test (10 Questions)</h3>
-                        <p>Instant offline practice test with timers, score & solutions.</p>
-                    </div>
+            <div class="hero-card">
+
+                <img src="profile.jpg"
+                     alt="Owner Profile"
+                     onerror="this.src='https://via.placeholder.com/90' "
+                     style="width:90px;height:90px;border-radius:50%;object-fit:cover;">
+
+                <h2>CHHOTU <span>EDUCATION GROUP</span></h2>
+                <p>Owner & Administrator</p>
+
+            </div>
+
+        </div>
+
+        <div class="section-header">
+            <h2>CHOOSE YOUR EXAM</h2>
+        </div>
+
+        <div class="exam-grid">
+
+            <div class="exam-card active-card" onclick="openExam('aiims')">
+                <div class="exam-icon">
+                    <i class="fa-solid fa-stethoscope"></i>
                 </div>
-                <button class="btn-primary" onclick="startDemoTest()"><i class="fa-solid fa-play"></i> Start Demo Test</button>
+                <h3>AIIMS NORCET</h3>
+                <p>Nursing Officer Exam Preparation.</p>
+                <div class="card-footer">Free Demo + Paid Test</div>
             </div>
 
-            <!-- Lower Cards Grid -->
-            <div class="bottom-grid">
-                <div class="sub-card">
-                    <div class="sub-icon"><i class="fa-solid fa-bookmark"></i></div>
-                    <div>
-                        <h4>Bookmarked Questions</h4>
-                        <p>Review flagged questions with detailed solutions, key pearls & clinical rationales.</p>
-                    </div>
+            <div class="exam-card active-card" onclick="openExam('neet')">
+                <div class="exam-icon">
+                    <i class="fa-solid fa-microscope"></i>
                 </div>
-                <div class="sub-card">
-                    <div class="sub-icon"><i class="fa-solid fa-circle-check"></i></div>
-                    <div>
-                        <h4>Past Test Attempts</h4>
-                        <p>Review detailed scorecards, solution rationales, and time pacing analytics.</p>
-                    </div>
+                <h3>NEET PG</h3>
+                <p>NEET PG Practice and Mock Tests.</p>
+                <div class="card-footer">Free Demo + Paid Test</div>
+            </div>
+
+            <div class="exam-card active-card" onclick="openExam('rrb')">
+                <div class="exam-icon">
+                    <i class="fa-solid fa-train"></i>
                 </div>
+                <h3>RRB Exams</h3>
+                <p>RRB NTPC and Group D Preparation.</p>
+                <div class="card-footer">Free Demo + Paid Test</div>
             </div>
-        </section>
 
-        <!-- TAB 2: TESTS -->
-        <section id="tests-tab" class="tab-content">
-            <div class="section-header">
-                <h2>AVAILABLE EXAM SERIES</h2>
-            </div>
-            <div class="tests-list">
-                <div class="test-row">
-                    <div>
-                        <h3>AIIMS NORCET Mock Test #1</h3>
-                        <p>100 Questions · 90 Mins · Negative Marking (1/3rd)</p>
-                    </div>
-                    <button class="btn-primary" onclick="startDemoTest()">Attempt Test</button>
+            <div class="exam-card active-card" onclick="openExam('ssc')">
+                <div class="exam-icon">
+                    <i class="fa-solid fa-book"></i>
                 </div>
-                <div class="test-row">
-                    <div>
-                        <h3>AIIMS NORCET Mock Test #2</h3>
-                        <p>100 Questions · 90 Mins · Negative Marking (1/3rd)</p>
-                    </div>
-                    <button class="btn-primary" onclick="startDemoTest()">Attempt Test</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 3: ATTEMPTS -->
-        <section id="attempts-tab" class="tab-content">
-            <div class="section-header">
-                <h2>YOUR RECENT TEST ATTEMPTS</h2>
-            </div>
-            <div id="attempts-container">
-                <p class="placeholder-text">Abhi tak koi test attempt nahi kiya hai. "Start Demo Test" par click karke shuru karein!</p>
-            </div>
-        </section>
-
-        <!-- TAB 4: LEARN & MEDIA (FILE & VIDEO UPLOAD) -->
-        <section id="learn-tab" class="tab-content">
-            <div class="section-header">
-                <h2>STUDY MATERIALS & VIDEO LECTURES</h2>
+                <h3>SSC CGL</h3>
+                <p>SSC CGL Practice and Mock Tests.</p>
+                <div class="card-footer">Free Demo + Paid Test</div>
             </div>
 
-            <!-- Upload Box -->
-            <div class="upload-section">
-                <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload New Material (Video / PDF / File)</h3>
-                <form id="uploadForm" onsubmit="handleUpload(event)">
-                    <div class="form-group">
-                        <label>Title / Subject Name:</label>
-                        <input type="text" id="fileTitle" required placeholder="e.g. AIIMS Nursing Chapter 1 Video">
-                    </div>
-                    <div class="form-group">
-                        <label>Type:</label>
-                        <select id="fileType">
-                            <option value="video">Video Lecture (.mp4, .webm)</option>
-                            <option value="document">PDF / Study Material</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Select File:</label>
-                        <input type="file" id="fileInput" required accept="video/*,.pdf,.doc,.docx,.txt">
-                    </div>
-                    <button type="submit" class="btn-primary"><i class="fa-solid fa-upload"></i> Upload File</button>
-                </form>
-            </div>
+        </div>
 
-            <!-- Uploaded Content Grid -->
-            <h3 class="sub-heading">Uploaded Videos & Study Files</h3>
-            <div class="media-grid" id="mediaContainer">
-                <!-- Default Sample Video Card -->
-                <div class="media-card">
-                    <video controls poster="https://via.placeholder.com/600x340/131b2e/3b82f6?text=Chhotu+Education+Group+Lecture">
-                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                        Your browser does not support video playback.
-                    </video>
-                    <div class="media-info">
-                        <h4>Demo Lecture - Anatomy Overview</h4>
-                        <span class="badge">Video</span>
-                    </div>
+        <div class="demo-banner">
+            <div class="demo-info">
+                <i class="fa-solid fa-flask demo-icon"></i>
+                <div>
+                    <h3>Try Free Demo Test</h3>
+                    <p>Practice questions with timer and score.</p>
                 </div>
             </div>
-        </section>
 
-    </main>
+            <button class="btn-primary" onclick="startDemoTest()">
+                Start Demo Test
+            </button>
+        </div>
 
-    <!-- Demo Test Modal -->
-    <div id="testModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Chhotu Education Group CBT Test</h3>
-                <div class="timer"><i class="fa-regular fa-clock"></i> <span id="timerDisplay">10:00</span></div>
-            </div>
-            <div class="modal-body">
-                <div id="questionContainer">
-                    <p class="q-number" id="qNumber">Question 1 of 3</p>
-                    <p class="q-text" id="qText">What is the normal blood pressure range in a healthy adult?</p>
-                    <div class="options-group" id="optionsGroup">
-                        <label class="option-label"><input type="radio" name="qOpt" value="0"> 120/80 mmHg</label>
-                        <label class="option-label"><input type="radio" name="qOpt" value="1"> 140/90 mmHg</label>
-                        <label class="option-label"><input type="radio" name="qOpt" value="2"> 100/60 mmHg</label>
-                        <label class="option-label"><input type="radio" name="qOpt" value="3"> 160/100 mmHg</label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeTestModal()">Cancel</button>
-                <button class="btn-primary" onclick="nextQuestion()">Next <i class="fa-solid fa-arrow-right"></i></button>
+        <!-- OWNER ACCESS -->
+
+        <div class="sub-card">
+            <div>
+                <h3>Owner Dashboard</h3>
+                <p>Administrator access to manage mock tests.</p>
+                <button class="btn-primary" onclick="ownerLogin()">
+                    Owner Login
+                </button>
             </div>
         </div>
-    </div>
-<!-- AIIMS SECTION - RRB jaisa same + Payment -->
-<div id="aiims-section" style="display:none; padding:20px; background:#f5f5f5; min-height:100vh; position:fixed; top:0; left:0; width:100%; z-index:9999; overflow:auto; box-sizing:border-box;">
-  <a href="#" onclick="document.getElementById('aiims-section').style.display='none'" style="text-decoration:none; color:#1e88e5; font-weight:bold;">← Back to Home</a>
-  <h1 style="text-align:center; color:#000; margin-top:20px; font-family:sans-serif;">AIIMS NORCET Important Questions</h1>
 
-  <div style="background:white; border:1.5px solid #333; border-radius:8px; padding:30px; text-align:center; margin:20px 0;">
-    <h2 style="color:#000; margin:0 0 15px 0;">Free Demo - 10 Questions</h2>
-    <button style="padding:10px 25px; background:#198754; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="startTest('aiims','free')">Start Free Test</button>
-  </div>
+    </section>
 
-  <div style="background:white; border:1.5px solid #e5a52c; border-radius:8px; padding:30px; text-align:center; margin:20px 0;">
-    <h2 style="color:#000; margin:0 0 15px 0; font-size:20px;">Full Course - 200 Qs - Rs.49/-</h2>
-    <div id="aiims-paid-lock">
-      <button style="padding:10px 25px; background:#e5a52c; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="payNow()">Unlock Paid Test - Rs.49</button>
-      <p style="font-size:13px; margin-top:12px;"> <span onclick="unlockPaid()" style="color:blue; text-decoration:underline; cursor:pointer; font-weight:bold;">click here</span></p>
+    <!-- TESTS -->
+
+    <section id="tests-tab" class="tab-content">
+
+        <div class="section-header">
+            <h2>AVAILABLE MOCK TESTS</h2>
+        </div>
+
+        <div id="exam-test-list">
+            <p>Select an exam from Home to see available tests.</p>
+        </div>
+
+    </section>
+
+    <!-- ATTEMPTS -->
+
+    <section id="attempts-tab" class="tab-content">
+
+        <div class="section-header">
+            <h2>YOUR TEST ATTEMPTS</h2>
+        </div>
+
+        <div id="attempts-container">
+            <p class="placeholder-text">No test attempts yet.</p>
+        </div>
+
+    </section>
+
+    <!-- LEARN -->
+
+    <section id="learn-tab" class="tab-content">
+
+        <div class="section-header">
+            <h2>STUDY MATERIALS & VIDEO LECTURES</h2>
+        </div>
+
+        <div class="upload-section">
+
+            <h3>Upload Study Material</h3>
+
+            <form id="uploadForm" onsubmit="handleUpload(event)">
+
+                <div class="form-group">
+                    <label>Title / Subject:</label>
+                    <input type="text" id="fileTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Type:</label>
+                    <select id="fileType">
+                        <option value="video">Video</option>
+                        <option value="document">PDF / Document</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select File:</label>
+                    <input type="file" id="fileInput"
+                           accept="video/*,.pdf,.doc,.docx,.txt" required>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Upload File
+                </button>
+
+            </form>
+
+        </div>
+
+        <h3 class="sub-heading">Uploaded Materials</h3>
+
+        <div class="media-grid" id="mediaContainer"></div>
+
+    </section>
+
+</main>
+
+<!-- EXAM SECTION -->
+
+<div id="exam-section" style="display:none;padding:25px;min-height:100vh;position:fixed;inset:0;z-index:9999;background:#090d16;overflow:auto;">
+
+    <button class="btn-secondary" onclick="closeExam()">
+        ← Back to Home
+    </button>
+
+    <h1 id="exam-heading" style="margin:25px 0;text-align:center;">
+        Exam
+    </h1>
+
+    <div class="test-row">
+        <div>
+            <h3>Free Demo Test</h3>
+            <p>10 Questions</p>
+        </div>
+        <button class="btn-primary" onclick="startTest('free')">
+            Start Free Test
+        </button>
     </div>
-    <div id="aiims-paid-unlock" style="display:none;">
-      <button style="padding:10px 25px; background:#198754; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="startTest('aiims','paid')">Start Full Mock Test (200 Qs)</button>
-      <p style="color:green; font-weight:bold; margin-top:10px;">✓ Paid Unlocked</p>
+
+    <div class="test-row">
+        <div>
+            <h3>Full Paid Mock Test</h3>
+            <p>200 Questions · ₹49 · 150 Days Access</p>
+        </div>
+
+        <button class="btn-primary" onclick="payNow()">
+            Unlock Paid Test ₹49
+        </button>
     </div>
-  </div>
+
+    <div id="owner-panel" style="display:none;" class="test-row">
+        <div>
+            <h3>Owner Access</h3>
+            <p>Direct access to full mock test.</p>
+        </div>
+        <button class="btn-primary" onclick="startTest('paid')">
+            Start Full Test
+        </button>
+    </div>
+
+    <div id="paid-status"></div>
+
 </div>
 
-<!-- NEET SECTION - RRB jaisa same + Payment -->
-<div id="neet-section" style="display:none; padding:20px; background:#f5f5f5; min-height:100vh; position:fixed; top:0; left:0; width:100%; z-index:9999; overflow:auto; box-sizing:border-box;">
-  <a href="#" onclick="document.getElementById('neet-section').style.display='none'" style="text-decoration:none; color:#1e88e5; font-weight:bold;">← Back to Home</a>
-  <h1 style="text-align:center; color:#000; margin-top:20px; font-family:sans-serif;">NEET PG Important Questions</h1>
+<!-- TEST MODAL -->
 
-  <div style="background:white; border:1.5px solid #333; border-radius:8px; padding:30px; text-align:center; margin:20px 0;">
-    <h2 style="color:#000; margin:0 0 15px 0;">Free Demo - 10 Questions</h2>
-    <button style="padding:10px 25px; background:#198754; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="startTest('neet','free')">Start Free Test</button>
-  </div>
+<div id="testModal" class="modal">
 
-  <div style="background:white; border:1.5px solid #e5a52c; border-radius:8px; padding:30px; text-align:center; margin:20px 0;">
-    <h2 style="color:#000; margin:0 0 15px 0; font-size:20px;">Full Course - 200 Qs - Rs.49/-</h2>
-    <div id="neet-paid-lock">
-      <button style="padding:10px 25px; background:#e5a52c; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="payNow()">Unlock Paid Test - Rs.49</button>
-      <p style="font-size:13px; margin-top:12px;"><span onclick="unlockPaid()" style="color:blue; text-decoration:underline; cursor:pointer; font-weight:bold;">click here</span></p>
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h3>Chhotu Education Group CBT Test</h3>
+            <div class="timer">
+                <span id="timerDisplay">10:00</span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <p class="q-number" id="qNumber"></p>
+            <p class="q-text" id="qText"></p>
+            <div class="options-group" id="optionsGroup"></div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeTestModal()">Cancel</button>
+            <button class="btn-primary" onclick="nextQuestion()">Next</button>
+        </div>
+
     </div>
-    <div id="neet-paid-unlock" style="display:none;">
-      <button style="padding:10px 25px; background:#198754; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size:15px;" onclick="startTest('neet','paid')">Start Full Mock Test (200 Qs)</button>
-      <p style="color:green; font-weight:bold; margin-top:10px;">✓ Paid Unlocked</p>
-    </div>
-  </div>
+
 </div>
 
-<script>
-function payNow(){
-    window.location.href = `upi://pay?pa=${YOUR_UPI}&pn=Chhotu-Education&am=49&cu=INR&tn=Nursing Full Course`;
-    
-    setTimeout(() => {
-        if(confirm("Have you completed the Rs.49 payment? Press OK to unlock.")){
-            const expiry = new Date();
-            expiry.setDate(expiry.getDate() + 150); // 5 Months
-            localStorage.setItem("paidExpiry", expiry.toISOString());
-            localStorage.setItem("isPaid", "true");
-            location.reload();
-        }
-    }, 2000);
-}
+<script src="script.js"></script>
 
-function unlockPaid(){
-    let pass = prompt("Enter Owner Password:");
-    if(pass === OWNER_PASSWORD){
-        const expiry = new Date();
-        expiry.setDate(expiry.getDate() + 150);
-        localStorage.setItem("paidExpiry", expiry.toISOString());
-        localStorage.setItem("isPaid", "true");
-        alert("Verified! Paid Test Unlocked for 5 Months.");
-        location.reload();
-    } else if(pass == null){
-        return;
-    } else {
-        alert("Invalid Password! Please complete payment first.");
-        payNow();
-    }
-}
-
-function ownerBypassForYouOnly(){
-    const expiry = new Date();
-    expiry.setDate(expiry.getDate() + 150);
-    localStorage.setItem("paidExpiry", expiry.toISOString());
-    localStorage.setItem("isPaid", "true");
-    location.reload();
-}
-
-function checkPaidStatus(){
-    const expiryStr = localStorage.getItem("paidExpiry");
-    const isPaid = localStorage.getItem("isPaid");
-    if(isPaid === "true" && expiryStr){
-        const expiry = new Date(expiryStr);
-        if(new Date() < expiry){
-            const lock = document.getElementById("paid-lock");
-            const unlocked = document.getElementById("paid-unlocked");
-            if(lock) lock.style.display = "none";
-            if(unlocked) unlocked.style.display = "block";
-            return;
-        } else {
-            localStorage.removeItem("isPaid");
-            localStorage.removeItem("paidExpiry");
-        }
-    }
-}
-window.onload = checkPaidStatus;
-</script>
-    <script src="script.js"></script>
-</body>    
+</body>
 </html>
