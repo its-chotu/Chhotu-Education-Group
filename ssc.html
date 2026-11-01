@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC CGL - Chhotu Education</title>
+</head>
+<body style="font-family: sans-serif; text-align:center; padding:20px;">
+<h1>SSC CGL Important Questions</h1>
+<div style="border:2px solid green; padding:20px; margin:20px; border-radius:10px;">
+<h2>Free Demo - 10 Questions</h2>
+<button onclick="window.location.href='ssc-free.html'" style="padding:12px 25px; background:green; color:white; border:none; border-radius:5px; font-size:16px;">Start Free Test</button>
+</div>
+<div style="border:2px solid orange; padding:20px; margin:20px; border-radius:10px; background:#e3f2fd;">
+<h2>Full Course - 200 Qs - Rs.49</h2>
+<button onclick="unlock()" style="padding:12px 25px; background:#2196F3; color:white; border:none; border-radius:5px; font-size:16px;">Unlock Paid Test</button>
+</div>
+<script>
+function unlock(){
+let p = prompt("Paid Password Daliye:");
+if(p === "chotu123"){
+window.location.href = "ssc-paid.html";
+} else if(p !== null){
+alert("Galat Password! Payment karke password lo.");
+}
+}
+</script>
+</body>
+</html>
