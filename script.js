@@ -1,175 +1,408 @@
-// JavaScript Logic for Chhotu Education Group Website
 
-// Sample Questions for Demo Test
+// ===============================
+// CHHOTU EDUCATION GROUP
+// Main JavaScript
+// ===============================
+
+// IMPORTANT:
+// This is a front-end demo only.
+// Real owner login and payment verification
+// require a secure backend.
+
+// Change this password for local testing only.
+// Anyone can see it in browser source code.
+const OWNER_DEMO_PASSWORD = "CHANGE_THIS_PASSWORD";
+
+let isOwner = false;
+let selectedExam = "aiims";
+
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let remainingSeconds = 300;
+let timerInterval = null;
+let testFinished = false;
+
+// Sample questions for FREE demo test.
+// Add your actual question bank here.
 const demoQuestions = [
     {
-        question: "What is the normal blood pressure range in a healthy adult?",
-        options: ["120/80 mmHg", "140/90 mmHg", "100/60 mmHg", "160/100 mmHg"],
-        correct: 0
+        question: "What does AI stand for?",
+        options: [
+            "Artificial Intelligence",
+            "Automatic Internet",
+            "Advanced Information",
+            "Artificial Internet"
+        ],
+        answer: 0
     },
     {
-        question: "Which organ is primary for drug metabolism in the human body?",
-        options: ["Kidney", "Liver", "Lungs", "Heart"],
-        correct: 1
+        question: "Which language is commonly used for AI?",
+        options: ["HTML", "Python", "CSS", "XML"],
+        answer: 1
     },
     {
-        question: "What is the full form of NORCET?",
-        options: ["Nursing Officer Common Eligibility Test", "National Officer Recruitment Common Entrance Test", "Nursing Exam Central Eligibility Test", "None of these"],
-        correct: 0
+        question: "Which data structure follows FIFO?",
+        options: ["Stack", "Tree", "Queue", "Graph"],
+        answer: 2
     }
 ];
 
-let currentQIndex = 0;
-let userScore = 0;
-let timerInterval;
+// ===============================
+// NAVIGATION
+// ===============================
 
-// Tab Switch Functionality
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+function switchTab(tabName, button) {
+    document.querySelectorAll(".tab-content").forEach(section => {
+        section.classList.remove("active");
+    });
 
-    document.getElementById(tabName + '-tab').classList.add('active');
-    event.currentTarget.classList.add('active');
+    document.querySelectorAll(".nav-links button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    const selectedSection = document.getElementById(tabName);
+
+    if (selectedSection) {
+        selectedSection.classList.add("active");
+    }
+
+    if (button) {
+        button.classList.add("active");
+    }
 }
 
-// Start Demo Test Modal
+// ===============================
+// EXAM SELECTION
+// ===============================
+
+function openExam(exam) {
+    selectedExam = exam;
+
+    const examNames = {
+        aiims: "AIIMS NORCET",
+        neet: "NEET PG",
+        rrb: "RRB",
+        ssc: "SSC CGL"
+    };
+
+    const heading = document.getElementById("exam-heading");
+
+    if (heading) {
+        heading.textContent = examNames[exam] || "Mock Test";
+    }
+
+    const examSection = document.getElementById("exam-section");
+
+    if (examSection) {
+        examSection.style.display = "flex";
+    }
+
+    const ownerPanel = document.getElementById("owner-panel");
+
+    if (ownerPanel) {
+        ownerPanel.style.display = isOwner ? "block" : "none";
+    }
+}
+
+function closeExam() {
+    const examSection = document.getElementById("exam-section");
+
+    if (examSection) {
+        examSection.style.display = "none";
+    }
+}
+
+// ===============================
+// OWNER LOGIN
+// ===============================
+
+function ownerLogin() {
+    const password = prompt("Enter Owner Password:");
+
+    if (password === null) return;
+
+    if (password === OWNER_DEMO_PASSWORD) {
+        isOwner = true;
+
+        const ownerPanel = document.getElementById("owner-panel");
+
+        if (ownerPanel) {
+            ownerPanel.style.display = "block";
+        }
+
+        alert("Owner demo login successful!");
+    } else {
+        alert("Incorrect password!");
+    }
+}
+
+// ===============================
+// FREE / PAID TEST
+// ===============================
+
 function startDemoTest() {
-    currentQIndex = 0;
-    userScore = 0;
-    document.getElementById('testModal').style.display = 'flex';
-    loadQuestion();
-    startTimer(300); // 5 minutes timer
+    startTest("free");
 }
+
+function startTest(type) {
+    if (type === "paid" && !isOwner) {
+        alert(
+            "Paid test access is locked. Payment verification and user login must be connected to the server first."
+        );
+        return;
+    }
+
+    // Only sample questions are currently available.
+    // Add your real exam question bank before launch.
+    currentQuestions = [...demoQuestions];
+
+    if (type === "paid") {
+        alert(
+            "Owner access opened. Currently only sample questions are added. Add your complete paid question bank before launching."
+        );
+    }
+
+    currentQuestionIndex = 0;
+    score = 0;
+    remainingSeconds = 300;
+    testFinished = false;
+
+    const testModal = document.getElementById("test-modal");
+
+    if (testModal) {
+        testModal.style.display = "flex";
+    }
+
+    loadQuestion();
+    startTimer();
+}
+
+// ===============================
+// LOAD QUESTION
+// ===============================
 
 function loadQuestion() {
-    const q = demoQuestions[currentQIndex];
-    document.getElementById('qNumber').innerText = `Question ${currentQIndex + 1} of ${demoQuestions.length}`;
-    document.getElementById('qText').innerText = q.question;
-    
-    const optsGroup = document.getElementById('optionsGroup');
-    optsGroup.innerHTML = '';
-    
-    q.options.forEach((opt, idx) => {
-        const label = document.createElement('label');
-        label.className = 'option-label';
-        label.innerHTML = `<input type="radio" name="qOpt" value="${idx}"> ${opt}`;
-        optsGroup.appendChild(label);
+    const question = currentQuestions[currentQuestionIndex];
+
+    if (!question) {
+        finishTest();
+        return;
+    }
+
+    const questionText = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-container");
+    const questionNumber = document.getElementById("question-number");
+
+    if (questionText) {
+        questionText.textContent = question.question;
+    }
+
+    if (questionNumber) {
+        questionNumber.textContent =
+            `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+    }
+
+    if (!optionsContainer) return;
+
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+        const button = document.createElement("button");
+
+        button.className = "option-btn";
+        button.textContent = option;
+
+        button.addEventListener("click", () => {
+            if (testFinished) return;
+
+            const allButtons =
+                optionsContainer.querySelectorAll("button");
+
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+            });
+
+            if (index === question.answer) {
+                score++;
+                button.classList.add("correct");
+            } else {
+                button.classList.add("wrong");
+                allButtons[question.answer].classList.add("correct");
+            }
+        });
+
+        optionsContainer.appendChild(button);
     });
 }
 
+// ===============================
+// NEXT QUESTION
+// ===============================
+
 function nextQuestion() {
-    const selected = document.querySelector('input[name="qOpt"]:checked');
-    if (selected) {
-        if (parseInt(selected.value) === demoQuestions[currentQIndex].correct) {
-            userScore++;
-        }
-    }
-    
-    currentQIndex++;
-    if (currentQIndex < demoQuestions.length) {
+    if (testFinished) return;
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < currentQuestions.length) {
         loadQuestion();
     } else {
         finishTest();
     }
 }
 
-function finishTest() {
+// ===============================
+// TIMER
+// ===============================
+
+function startTimer() {
     clearInterval(timerInterval);
-    alert(`Test Complete! Your Score: ${userScore} / ${demoQuestions.length}`);
-    
-    // Save to attempts tab
-    const attemptsContainer = document.getElementById('attempts-container');
-    const attemptCard = document.createElement('div');
-    attemptCard.className = 'test-row';
-    attemptCard.innerHTML = `
-        <div>
-            <h3>Demo Test Attempt</h3>
-            <p>Score: ${userScore}/${demoQuestions.length} · Completed Just Now</p>
-        </div>
-        <span class="badge" style="background:#10b981; color:white;">Passed</span>
-    `;
-    if (attemptsContainer.querySelector('.placeholder-text')) {
-        attemptsContainer.innerHTML = '';
-    }
-    attemptsContainer.appendChild(attemptCard);
 
-    closeTestModal();
-}
+    updateTimerDisplay();
 
-function closeTestModal() {
-    clearInterval(timerInterval);
-    document.getElementById('testModal').style.display = 'none';
-}
+    timerInterval = setInterval(() => {
+        remainingSeconds--;
 
-function startTimer(duration) {
-    let timer = duration, minutes, seconds;
-    clearInterval(timerInterval);
-    timerInterval = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+        updateTimerDisplay();
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        document.getElementById('timerDisplay').innerText = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            clearInterval(timerInterval);
+        if (remainingSeconds <= 0) {
             finishTest();
         }
     }, 1000);
 }
 
-// Upload Media/File Handler
-function handleUpload(e) {
-    e.preventDefault();
-    const title = document.getElementById('fileTitle').value;
-    const type = document.getElementById('fileType').value;
-    const fileInput = document.getElementById('fileInput');
+function updateTimerDisplay() {
+    const timer = document.getElementById("timer");
 
-    if (fileInput.files.length === 0) return;
+    if (!timer) return;
 
-    const file = fileInput.files[0];
-    const fileUrl = URL.createObjectURL(file);
-    const container = document.getElementById('mediaContainer');
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
 
-    const card = document.createElement('div');
-    card.className = 'media-card';
+    timer.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
 
-    if (type === 'video') {
-        card.innerHTML = `
-            <video controls src="${fileUrl}"></video>
-            <div class="media-info">
-                <h4>${title}</h4>
-                <span class="badge">Video</span>
-            </div>
-        `;
-    } else {
-        card.innerHTML = `
-            <div style="padding: 40px; text-align: center; background: #131b2e;">
-                <i class="fa-solid fa-file-pdf" style="font-size: 50px; color: #ef4444;"></i>
-            </div>
-            <div class="media-info">
-                <h4>${title}</h4>
-                <a href="${fileUrl}" download="${file.name}" class="badge" style="text-decoration:none;">Download File</a>
-            </div>
-        `;
+// ===============================
+// FINISH TEST
+// ===============================
+
+function finishTest() {
+    if (testFinished) return;
+
+    testFinished = true;
+    clearInterval(timerInterval);
+
+    const optionsContainer = document.getElementById("options-container");
+
+    if (optionsContainer) {
+        optionsContainer.innerHTML = "";
     }
+
+    const questionText = document.getElementById("question-text");
+
+    if (questionText) {
+        questionText.textContent =
+            `Test Completed! Your Score: ${score}/${currentQuestions.length}`;
+    }
+
+    const questionNumber = document.getElementById("question-number");
+
+    if (questionNumber) {
+        questionNumber.textContent = "Result";
+    }
+
+    saveAttempt(score, currentQuestions.length);
+}
+
+// ===============================
+// CLOSE TEST
+// ===============================
+
+function closeTestModal() {
+    clearInterval(timerInterval);
+
+    const testModal = document.getElementById("test-modal");
+
+    if (testModal) {
+        testModal.style.display = "none";
+    }
+}
+
+// ===============================
+// SAVE ATTEMPTS
+// ===============================
+
+function saveAttempt(result, total) {
+    const container = document.getElementById("attempts-container");
+
+    if (!container) return;
+
+    const card = document.createElement("div");
+    card.className = "attempt-card";
+
+    const title = document.createElement("h3");
+    title.textContent = selectedExam.toUpperCase();
+
+    const details = document.createElement("p");
+    details.textContent = `Score: ${result}/${total}`;
+
+    card.appendChild(title);
+    card.appendChild(details);
 
     container.prepend(card);
-    document.getElementById('uploadForm').reset();
-    alert('File uploaded successfully to portal section!');
 }
 
-function toggleTheme() {
-    alert("Dark theme is active by default for Chhotu Education Group.");
+// ===============================
+// PAYMENT
+// ===============================
+
+function payNow() {
+    alert(
+        "Payment verification is not connected yet. Do not grant paid access based on a screenshot or a return from a UPI app. A payment gateway and secure server verification are required."
+    );
 }
-function checkComingSoonPassword() {
-    let password = prompt("Enter password for NEET PG:");
-    if (password === "Akhand@123") { // Yahan "12345" ki jagah aap apna password badal sakte hain
-        alert("Access Granted!");
-        // Yahan aage ka code likh sakte hain jo unlock hone par chalega
-    } else if (password !== null) {
-        alert("Wrong Password!");
-    }
+
+// ===============================
+// STUDY MATERIAL UPLOAD
+// ===============================
+
+function handleUpload(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const container = document.getElementById("study-material-list");
+
+    if (!container) return;
+
+    const fileURL = URL.createObjectURL(file);
+
+    const item = document.createElement("div");
+    item.className = "material-card";
+
+    const fileName = document.createElement("p");
+    fileName.textContent = file.name;
+
+    const link = document.createElement("a");
+    link.href = fileURL;
+    link.textContent = "Open Material";
+    link.target = "_blank";
+    link.rel = "noopener";
+
+    item.appendChild(fileName);
+    item.appendChild(link);
+
+    container.appendChild(item);
+
+    alert("File added for this browser session. It is not uploaded to a shared server.");
+}
+
+// ===============================
+// THEME
+// ===============================
+
+function toggleTheme() {
+    document.body.classList.toggle("light-theme");
 }
